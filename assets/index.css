@@ -520,6 +520,18 @@
       gap: 0.7rem;
     }
 
+    .service-options {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .service-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
     .service-name {
       font-family: "Playfair Display", serif;
       font-size: 1.2rem;
