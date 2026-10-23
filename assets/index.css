@@ -355,12 +355,50 @@
       outline-offset: 2px;
     }
 
+    .hero-stats {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 1;
+      padding-top: 0.75rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 0.55rem 0.35rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-sm);
+      background: rgba(16, 20, 17, 0.48);
+    }
+
+    .stat-value {
+      color: #fff;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.05rem, 4vw, 1.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      color: #f2f0eb;
+      font-size: clamp(0.58rem, 2.5vw, 0.88rem);
+      font-weight: 500;
+      line-height: 1.35;
+      margin-top: 0.35rem;
+    }
+
     .hero {
       min-height: min(88vh, 760px);
       display: flex;
       align-items: center;
       position: relative;
       isolation: isolate;
+      padding: 7rem 0 2rem;
       background:
         linear-gradient(to bottom, rgba(16, 20, 17, 0.5), rgba(16, 20, 17, 0.56)),
         url("https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
@@ -811,6 +849,10 @@
 
       .section {
         padding: 6rem 0;
+      }
+
+      .hero {
+        padding-top: 6rem;
       }
 
       .about-grid {
