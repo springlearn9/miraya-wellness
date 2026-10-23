@@ -55,7 +55,7 @@
     );
 
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
-
+  
     const galleryCarousel = document.getElementById("galleryCarousel");
     const galleryTrack = document.getElementById("galleryTrack");
 
@@ -101,3 +101,49 @@
         }
       }, 2000);
     }
+
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_JWb8mr-Oh44Mwpz53fnAeOGapWheaKe5wyu2JGQSSyEdeQdiUiDceK-InQUnLI6lMA/exec";
+
+  const form = document.getElementById("bookingForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusDiv = document.getElementById("formStatus");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Disable button & show sending message
+    submitBtn.disabled = true;
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = "Submitting...";
+    statusDiv.style.color = "#333";
+    statusDiv.textContent = "Processing your request...";
+
+    // Use URLSearchParams to avoid CORS preflight issues with Google Apps Script
+    const formData = new URLSearchParams(new FormData(form));
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          statusDiv.style.color = "green";
+          statusDiv.textContent = "Booking request submitted successfully!";
+          form.reset();
+        } else {
+          statusDiv.style.color = "red";
+          statusDiv.textContent = data.message || "Failed to submit request. Please try again.";
+        }
+      })
+      .catch(error => {
+        console.error("Submission error:", error);
+        statusDiv.style.color = "red";
+        statusDiv.textContent = "An error occurred. Please try again or call us directly.";
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      });
+  });

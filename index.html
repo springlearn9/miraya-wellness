@@ -308,7 +308,7 @@
 
           <article class="form-card reveal">
             <h3 class="service-name">Booking Request</h3>
-            <form>
+            <form id="bookingForm">
               <div class="field">
                 <label for="name">Name</label>
                 <input id="name" name="name" type="text" placeholder="Enter your full name" required />
@@ -334,8 +334,10 @@
                 <label for="datetime">Preferred Date/Time</label>
                 <input id="datetime" name="datetime" type="text" placeholder="e.g. 12 Sep, 7:30 PM" required />
               </div>
-              <button type="submit" class="btn btn-primary">Submit Request</button>
+              <button type="submit" class="btn btn-primary" id="submitBtn">Submit Request</button>
               <p class="form-note">This is a static form preview. Please call us directly for instant confirmation.</p>
+              <!-- Status Message Container -->
+  <div id="formStatus" style="margin-top: 15px; font-weight: bold;"></div>
             </form>
           </article>
         </div>
