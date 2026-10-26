@@ -308,7 +308,7 @@
 
           <article class="form-card reveal">
             <h3 class="service-name">Booking Request</h3>
-            <form id="bookingForm">
+            <form id="bookingForm" target="bookingResponse">
               <div class="field">
                 <label for="name">Name</label>
                 <input id="name" name="name" type="text" placeholder="Enter your full name" required />
@@ -335,10 +335,10 @@
                 <input id="datetime" name="datetime" type="text" placeholder="e.g. 12 Sep, 7:30 PM" required />
               </div>
               <button type="submit" class="btn btn-primary" id="submitBtn">Submit Request</button>
-              <p class="form-note">This is a static form preview. Please call us directly for instant confirmation.</p>
-              <!-- Status Message Container -->
-  <div id="formStatus" style="margin-top: 15px; font-weight: bold;"></div>
+              <p class="form-note">Submit a request and we’ll contact you to confirm. For instant confirmation, please call us directly.</p>
+              <div id="formStatus" style="margin-top: 15px; font-weight: bold;" role="status" aria-live="polite"></div>
             </form>
+            <iframe name="bookingResponse" title="Booking request response" hidden></iframe>
           </article>
         </div>
       </div>

@@ -108,42 +108,30 @@
   const form = document.getElementById("bookingForm");
   const submitBtn = document.getElementById("submitBtn");
   const statusDiv = document.getElementById("formStatus");
+  const responseFrame = document.querySelector('iframe[name="bookingResponse"]');
+  let submissionPending = false;
+  const originalBtnText = submitBtn.textContent;
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  form.action = SCRIPT_URL;
+  form.method = "POST";
 
-    // Disable button & show sending message
+  form.addEventListener("submit", function () {
+    submissionPending = true;
     submitBtn.disabled = true;
-    const originalBtnText = submitBtn.textContent;
     submitBtn.textContent = "Submitting...";
     statusDiv.style.color = "#333";
     statusDiv.textContent = "Processing your request...";
+  });
 
-    // Use URLSearchParams to avoid CORS preflight issues with Google Apps Script
-    const formData = new URLSearchParams(new FormData(form));
+  responseFrame.addEventListener("load", function () {
+    if (!submissionPending) {
+      return;
+    }
 
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          statusDiv.style.color = "green";
-          statusDiv.textContent = "Booking request submitted successfully!";
-          form.reset();
-        } else {
-          statusDiv.style.color = "red";
-          statusDiv.textContent = data.message || "Failed to submit request. Please try again.";
-        }
-      })
-      .catch(error => {
-        console.error("Submission error:", error);
-        statusDiv.style.color = "red";
-        statusDiv.textContent = "An error occurred. Please try again or call us directly.";
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-      });
+    submissionPending = false;
+    form.reset();
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalBtnText;
+    statusDiv.style.color = "green";
+    statusDiv.textContent = "Your request was sent. We will contact you to confirm.";
   });
