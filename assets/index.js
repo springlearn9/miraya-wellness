@@ -104,7 +104,6 @@
 
 
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwChlZX9KYcFIQveRtknTzqcT4CheP3bXFHZ7iN5CviSaGX0cYoQLRHij6Y6St8qOZvYA/exec";
-
   const form = document.getElementById("bookingForm");
   const submitBtn = document.getElementById("submitBtn");
   const statusDiv = document.getElementById("formStatus");
