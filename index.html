@@ -315,7 +315,7 @@
               </div>
               <div class="field">
                 <label for="phone">Phone Number</label>
-                <input id="phone" name="phone" type="tel" placeholder="e.g. +91 98XXXXXXXX" required />
+                <input id="phone" name="phone" type="tel" placeholder="Enter 10-digit phone number" pattern="[0-9]{10}" minlength="10" maxlength="10" inputmode="numeric" title="Enter a valid phone number with exactly 10 digits" required />
               </div>
               <div class="field">
                 <label for="service">Service Required</label>
@@ -331,8 +331,20 @@
                 </select>
               </div>
               <div class="field">
-                <label for="datetime">Preferred Date/Time</label>
-                <input id="datetime" name="datetime" type="text" placeholder="e.g. 12 Sep, 7:30 PM" required />
+                <span id="preferredDateTimeLabel">Preferred Date/Time</span>
+                <div class="datetime-fields">
+                  <div class="field">
+                    <label for="datetimeDate">Date</label>
+                    <input id="datetimeDate" type="date" lang="en-GB" required />
+                  </div>
+                  <div class="field">
+                    <label for="datetimeTime">Time</label>
+                    <input id="datetimeTime" type="time" step="1" required />
+                  </div>
+                </div>
+                <label for="datetimeDisplay">Selected date and time (DD-MMM-yyyy HH:mm:ss)</label>
+                <input id="datetimeDisplay" type="text" placeholder="DD-MMM-yyyy HH:mm:ss" readonly />
+                <input id="datetime" name="datetime" type="hidden" />
               </div>
               <button type="submit" class="btn btn-primary" id="submitBtn">Submit Request</button>
               <p class="form-note">Submit a request and we’ll contact you to confirm. For instant confirmation, please call us directly.</p>

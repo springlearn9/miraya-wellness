@@ -110,11 +110,41 @@
   const responseFrame = document.querySelector('iframe[name="bookingResponse"]');
   let submissionPending = false;
   const originalBtnText = submitBtn.textContent;
+  const phoneInput = document.getElementById("phone");
+  const dateInput = document.getElementById("datetimeDate");
+  const timeInput = document.getElementById("datetimeTime");
+  const datetimeValue = document.getElementById("datetime");
+  const datetimeDisplay = document.getElementById("datetimeDisplay");
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  function updatePreferredDateTime() {
+    if (!dateInput.value || !timeInput.value) {
+      datetimeValue.value = "";
+      datetimeDisplay.value = "";
+      return;
+    }
+
+    const [year, month, day] = dateInput.value.split("-");
+    const [hours, minutes, seconds = "00"] = timeInput.value.split(":");
+    const formattedValue = `${day}-${monthNames[Number(month) - 1]}-${year} ${hours}:${minutes}:${seconds}`;
+    datetimeValue.value = formattedValue;
+    datetimeDisplay.value = formattedValue;
+  }
+
+  dateInput.addEventListener("input", updatePreferredDateTime);
+  timeInput.addEventListener("input", updatePreferredDateTime);
+  form.addEventListener("reset", () => window.setTimeout(updatePreferredDateTime));
+  updatePreferredDateTime();
 
   form.action = SCRIPT_URL;
   form.method = "POST";
 
+  phoneInput.addEventListener("input", function () {
+    phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+  });
+
   form.addEventListener("submit", function () {
+    updatePreferredDateTime();
     submissionPending = true;
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
