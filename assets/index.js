@@ -111,28 +111,27 @@
   let submissionPending = false;
   const originalBtnText = submitBtn.textContent;
   const phoneInput = document.getElementById("phone");
-  const dateInput = document.getElementById("datetimeDate");
-  const timeInput = document.getElementById("datetimeTime");
+  const preferredDateTimeInput = document.getElementById("preferredDateTime");
   const datetimeValue = document.getElementById("datetime");
-  const datetimeDisplay = document.getElementById("datetimeDisplay");
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   function updatePreferredDateTime() {
-    if (!dateInput.value || !timeInput.value) {
+    if (!preferredDateTimeInput.value) {
       datetimeValue.value = "";
-      datetimeDisplay.value = "";
       return;
     }
 
-    const [year, month, day] = dateInput.value.split("-");
-    const [hours, minutes, seconds = "00"] = timeInput.value.split(":");
-    const formattedValue = `${day}-${monthNames[Number(month) - 1]}-${year} ${hours}:${minutes}:${seconds}`;
+    const [date, time] = preferredDateTimeInput.value.split("T");
+    const [year, month, day] = date.split("-");
+    const [hours, minutes] = time.split(":");
+    const hour = Number(hours) % 12 || 12;
+    const period = Number(hours) < 12 ? "AM" : "PM";
+    const formattedValue = `${day}-${monthNames[Number(month) - 1]}-${year} ${String(hour).padStart(2, "0")}:${minutes} ${period}`;
     datetimeValue.value = formattedValue;
-    datetimeDisplay.value = formattedValue;
   }
 
-  dateInput.addEventListener("input", updatePreferredDateTime);
-  timeInput.addEventListener("input", updatePreferredDateTime);
+  preferredDateTimeInput.addEventListener("input", updatePreferredDateTime);
+  preferredDateTimeInput.addEventListener("change", updatePreferredDateTime);
   form.addEventListener("reset", () => window.setTimeout(updatePreferredDateTime));
   updatePreferredDateTime();
 

@@ -308,7 +308,7 @@
 
           <article class="form-card reveal">
             <h3 class="service-name">Booking Request</h3>
-            <form id="bookingForm" target="bookingResponse">
+            <form id="bookingForm" class="booking-form" target="bookingResponse">
               <div class="field">
                 <label for="name">Name</label>
                 <input id="name" name="name" type="text" placeholder="Enter your full name" required />
@@ -331,28 +331,21 @@
                 </select>
               </div>
               <div class="field">
-                <span id="preferredDateTimeLabel">Preferred Date/Time</span>
-                <div class="datetime-fields">
-                  <div class="field">
-                    <label for="datetimeDate">Date</label>
-                    <input id="datetimeDate" type="date" lang="en-GB" required />
-                  </div>
-                  <div class="field">
-                    <label for="datetimeTime">Time</label>
-                    <input id="datetimeTime" type="time" step="1" required />
-                  </div>
-                </div>
-                <label for="datetimeDisplay">Selected date and time (DD-MMM-yyyy HH:mm:ss)</label>
-                <input id="datetimeDisplay" type="text" placeholder="DD-MMM-yyyy HH:mm:ss" readonly />
+                <label for="preferredDateTime">Preferred date and time</label>
+                <input id="preferredDateTime" type="datetime-local" lang="en-US" step="60" required />
                 <input id="datetime" name="datetime" type="hidden" />
               </div>
-              <div class="field">
+              <div class="field booking-form-wide">
+                <label for="address">Address</label>
+                <input id="address" name="address" type="text" placeholder="Enter your address" autocomplete="street-address" />
+              </div>
+              <div class="field booking-form-wide">
                 <label for="comments">Comments</label>
                 <textarea id="comments" name="comments" rows="4" placeholder="Add any comments or special requests (optional)"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" id="submitBtn">Submit Request</button>
-              <p class="form-note">Submit a request and we’ll contact you to confirm. For instant confirmation, please call us directly.</p>
-              <div id="formStatus" style="margin-top: 15px; font-weight: bold;" role="status" aria-live="polite"></div>
+              <button type="submit" class="btn btn-primary booking-form-wide" id="submitBtn">Submit Request</button>
+              <p class="form-note booking-form-wide">Submit a request and we’ll contact you to confirm. For instant confirmation, please call us directly.</p>
+              <div id="formStatus" class="booking-form-wide" style="margin-top: 15px; font-weight: bold;" role="status" aria-live="polite"></div>
             </form>
             <iframe name="bookingResponse" title="Booking request response" hidden></iframe>
           </article>
